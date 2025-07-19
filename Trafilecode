@@ -1,0 +1,24 @@
+from pyrogram import Client, filters
+import os
+
+api_id = int(os.environ.get("API_ID"))
+api_hash = os.environ.get("API_HASH")
+bot_token = os.environ.get("BOT_TOKEN")
+
+app = Client("SamiteraBoxVdoBot", api_id=api_id, api_hash=api_hash, bot_token=bot_token)
+
+@app.on_message(filters.command("start"))
+async def start(client, message):
+    await message.reply_text("✅ Welcome! Try Terabox in bot version video downloader.")
+
+@app.on_message(filters.text & filters.private)
+async def handle_terabox(client, message):
+    link = message.text
+    if "terabox" in link:
+        await message.reply_text(f"📥 Received your link:\n`{link}`\n\n✅ Video downloading system under setup!")
+    else:
+        await message.reply_text("❌ Invalid link, please send Terabox video link only.")
+
+app.run()
+
+
